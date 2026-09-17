@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentina Noir | Model</title>
+<meta name="description" content="Official site of model Valentina Noir. Shop, gallery, bookings and custom requests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   QUICK EDIT GUIDE
+   1. Replace "Valentina Noir" with the model's name (search the file).
+   2. Put photos in an /images folder next to this file:
+        hero-1.jpg ... hero-5.jpg      (landscape, 2400px wide)
+        about.jpg                      (portrait)
+        gallery-1.jpg ... gallery-9.jpg
+      Until they exist, colored placeholders show instead.
+   3. Set SHOP_URL below (search "SHOP_URL") to the cart link.
+   4. Swap the Formspree IDs in the two forms for real ones
+      (formspree.io is free) or point them at your own handler.
+   ========================================================= */
+
+:root{
+  --wine:#2B0D17;
+  --wine-deep:#16060B;
+  --claret:#7C2239;
+  --blush:#F1DCD6;
+  --blush-dim:#C9ADA7;
+  --champagne:#D6B485;
+  --line:rgba(241,220,214,.16);
+
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Jost", "Futura", "Avenir Next", system-ui, sans-serif;
+
+  --gutter:clamp(1.25rem, 5vw, 4rem);
+  --max:1240px;
+
+  /* placeholder tones, used until real photos are added */
+  --ph-1:radial-gradient(120% 90% at 70% 30%, #9b3a52 0%, #3a1120 55%, #16060B 100%);
+  --ph-2:radial-gradient(110% 80% at 25% 40%, #c98b7c 0%, #5a1d2e 50%, #16060B 100%);
+  --ph-3:linear-gradient(160deg, #1f0a12 0%, #7c2239 55%, #e3b9a8 120%);
+  --ph-4:radial-gradient(90% 90% at 60% 70%, #d6b485 0%, #6d2a2f 45%, #16060B 100%);
+  --ph-5:linear-gradient(200deg, #3d1422 0%, #a14a5d 60%, #f1dcd6 130%);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  margin:0;
+  background:var(--wine);
+  color:var(--blush);
+  font-family:var(--body);
+  font-weight:300;
+  font-size:1.0625rem;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.9rem 1.8rem;
+  font:500 .95rem/1 var(--body);
+  letter-spacing:.04em;
+  text-decoration:none;
+  border-radius:999px;
+  border:1px solid var(--blush);
+  background:transparent;color:var(--blush);
+  cursor:pointer;
+  transition:background .25s, color .25s, border-color .25s;
+}
+.btn:hover{background:var(--blush);color:var(--wine-deep)}
+.btn--solid{background:var(--blush);color:var(--wine-deep)}
+.btn--solid:hover{background:var(--champagne);border-color:var(--champagne)}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem var(--gutter);
+  transition:background .35s, padding .35s;
+}
+.nav.is-solid{background:rgba(22,6,11,.88);backdrop-filter:blur(10px);padding-block:.75rem}
+.nav__brand{
+  font:italic 500 1.5rem/1 var(--display);
+  text-decoration:none;
+}
+.nav__links{display:flex;align-items:center;gap:2rem;list-style:none;margin:0;padding:0}
+.nav__links a{text-decoration:none;font-size:.95rem;opacity:.85}
+.nav__links a:hover{opacity:1}
+.nav__links .btn{padding:.6rem 1.3rem;opacity:1}
+.nav__toggle{
+  display:none;background:none;border:0;color:var(--blush);
+  width:44px;height:44px;cursor:pointer;
+}
+.nav__toggle span{display:block;height:1px;background:currentColor;margin:7px 8px;transition:transform .3s}
+
+@media (max-width:860px){
+  .nav__toggle{display:block}
+  .nav__links{
+    position:fixed;inset:0;flex-direction:column;justify-content:center;gap:1.6rem;
+    background:var(--wine-deep);
+    transform:translateY(-100%);transition:transform .45s ease;
+  }
+  .nav__links a{font:italic 400 2rem/1 var(--display)}
+  .nav__links .btn{font:500 1rem/1 var(--body);padding:.9rem 2rem}
+  .nav.is-open .nav__links{transform:none}
+  .nav.is-open .nav__toggle{position:relative;z-index:2}
+  .nav.is-open .nav__toggle span:first-child{transform:translateY(4px) rotate(45deg)}
+  .nav.is-open .nav__toggle span:last-child{transform:translateY(-4px) rotate(-45deg)}
+}
+
+/* ---------- hero slideshow ---------- */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--wine-deep)}
+.slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;transform:scale(1.12);
+  transition:opacity 1.4s ease, transform 7s ease-out;
+}
+.slide.is-active{opacity:1;transform:scale(1)}
+.slide:nth-child(1){background-image:url("images/hero-1.jpg"), var(--ph-1)}
+.slide:nth-child(2){background-image:url("images/hero-2.jpg"), var(--ph-2)}
+.slide:nth-child(3){background-image:url("images/hero-3.jpg"), var(--ph-3)}
+.slide:nth-child(4){background-image:url("images/hero-4.jpg"), var(--ph-4)}
+.slide:nth-child(5){background-image:url("images/hero-5.jpg"), var(--ph-5)}
+
+.hero::after{ /* shade so the name stays readable on any photo */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg, rgba(22,6,11,.55) 0%, rgba(22,6,11,0) 28%, rgba(22,6,11,0) 45%, rgba(22,6,11,.85) 100%);
+}
+
+.hero__content{
+  position:absolute;z-index:2;left:0;right:0;bottom:clamp(4.5rem,10vh,7rem);
+}
+.hero__name{
+  margin:0;
+  font-family:var(--display);
+  font-weight:400;
+  font-style:italic;
+  font-size:clamp(4rem, 15vw, 13.5rem);
+  line-height:.82;
+  letter-spacing:-.035em;
+  font-variation-settings:"opsz" 96;
+}
+.hero__name span{display:block;padding-left:.55em;font-style:normal}
+.hero__row{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;
+  margin-top:1.75rem;
+}
+.hero__tag{margin:0;max-width:32ch;color:var(--blush-dim);font-size:1.05rem}
+.hero__cta{display:flex;gap:.75rem;flex-wrap:wrap}
+
+/* story-style progress bars */
+.hero__bars{
+  position:absolute;z-index:3;left:var(--gutter);right:var(--gutter);bottom:2rem;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;
+}
+.bar{
+  position:relative;height:18px;padding:0;border:0;background:none;cursor:pointer;
+}
+.bar::before,.bar i{
+  content:"";position:absolute;left:0;top:50%;height:2px;margin-top:-1px;
+}
+.bar::before{right:0;background:rgba(241,220,214,.28)}
+.bar i{width:0;background:var(--blush)}
+.bar.is-done i{width:100%}
+.bar.is-active i{animation:fill var(--dur,6s) linear forwards}
+.hero.is-paused .bar.is-active i{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+
+/* ---------- sections ---------- */
+section{padding:clamp(5rem,12vw,9rem) 0}
+.h2{
+  margin:0 0 2.5rem;
+  font:italic 400 clamp(2.6rem,6vw,4.75rem)/1 var(--display);
+  letter-spacing:-.02em;
+}
+.lede{max-width:56ch;color:var(--blush-dim);margin:-1.25rem 0 3rem}
+
+/* about */
+.about{display:grid;grid-template-columns:5fr 6fr;gap:clamp(2rem,6vw,6rem);align-items:center}
+.about__photo{
+  aspect-ratio:4/5;border-radius:220px 220px 4px 4px;
+  background:url("images/about.jpg") center/cover, var(--ph-2);
+}
+.about__text p{max-width:52ch;margin:0 0 1.2rem}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem 1rem;
+  margin:2.5rem 0 0;padding:1.75rem 0 0;border-top:1px solid var(--line);
+}
+.stats dt{font-size:.85rem;color:var(--blush-dim)}
+.stats dd{margin:.15rem 0 0;font:400 1.35rem/1.2 var(--display)}
+@media (max-width:760px){
+  .about{grid-template-columns:1fr}
+  .about__photo{max-width:420px}
+}
+
+/* gallery */
+.gallery{columns:3 260px;column-gap:1rem}
+.shot{
+  display:block;width:100%;margin:0 0 1rem;padding:0;border:0;cursor:zoom-in;
+  break-inside:avoid;border-radius:4px;
+  background-size:cover;background-position:center;
+  transition:filter .3s;
+}
+.shot:hover{filter:brightness(1.12)}
+.shot--tall{aspect-ratio:3/4.4}
+.shot--mid{aspect-ratio:4/5}
+.shot--wide{aspect-ratio:4/3}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:100;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(22,6,11,.95);padding:4rem 1rem;
+}
+.lightbox.is-open{display:flex}
+.lightbox__img{
+  width:min(90vw,900px);height:min(80vh,1100px);
+  background-size:contain;background-repeat:no-repeat;background-position:center;
+}
+.lb-btn{
+  position:absolute;background:none;border:0;color:var(--blush);cursor:pointer;
+  font:300 2.5rem/1 var(--body);width:56px;height:56px;
+}
+.lb-close{top:1rem;right:1rem}
+.lb-prev{left:1rem;top:50%;transform:translateY(-50%)}
+.lb-next{right:1rem;top:50%;transform:translateY(-50%)}
+
+/* shop band */
+.shop{background:var(--claret);text-align:center}
+.shop .h2{margin-bottom:1rem}
+.shop p{max-width:44ch;margin:0 auto 2.25rem;color:#EBCFCB}
+
+/* links */
+.links{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.links a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:1.4rem .25rem;border-bottom:1px solid var(--line);
+  text-decoration:none;transition:padding .3s, color .3s;
+}
+.links a:hover{padding-left:1rem;color:var(--champagne)}
+.links__name{font:400 clamp(1.6rem,3.5vw,2.4rem)/1.1 var(--display)}
+.links__handle{color:var(--blush-dim);font-size:.95rem}
+
+/* forms */
+.split{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(2rem,6vw,6rem);align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.split .lede{margin-top:-1rem}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field--full{grid-column:1/-1}
+@media (max-width:560px){.form{grid-template-columns:1fr}}
+label{font-size:.9rem;color:var(--blush-dim)}
+input,select,textarea{
+  font:inherit;color:var(--blush);
+  background:rgba(241,220,214,.05);
+  border:1px solid var(--line);border-radius:6px;
+  padding:.85rem 1rem;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--champagne)}
+select option{background:var(--wine-deep)}
+textarea{min-height:150px;resize:vertical}
+.form .btn{justify-self:start}
+.form__note{grid-column:1/-1;margin:0;font-size:.9rem;color:var(--champagne);min-height:1.4em}
+
+.requests{background:var(--wine-deep)}
+.contact-list{list-style:none;padding:0;margin:0}
+.contact-list li{padding:.9rem 0;border-bottom:1px solid var(--line)}
+.contact-list span{display:block;font-size:.85rem;color:var(--blush-dim)}
+.contact-list a{text-decoration:none;font:400 1.3rem/1.3 var(--display)}
+.contact-list a:hover{color:var(--champagne)}
+
+/* footer */
+footer{padding:2.5rem 0;border-top:1px solid var(--line);font-size:.9rem;color:var(--blush-dim)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+footer a{text-decoration:none}
+footer a:hover{color:var(--blush)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .slide{transition:opacity .01s;transform:none}
+  .slide.is-active{transform:none}
+  .bar.is-active i{animation:none;width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav" aria-label="Main">
+  <a class="nav__brand" href="#top">Valentina Noir</a>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span>
+  </button>
+  <ul class="nav__links" id="navLinks">
+    <li><a href="#about">About me</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#links">My links</a></li>
+    <li><a href="#requests">Requests</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <!-- SHOP_URL: replace href with the cart link -->
+    <li><a class="btn" href="https://your-store.com/cart" target="_blank" rel="noopener">Shop</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="slides" aria-hidden="true">
+    <div class="slide is-active"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+
+  <div class="hero__content wrap">
+    <h1 class="hero__name">Valentina<span>Noir</span></h1>
+    <div class="hero__row">
+      <p class="hero__tag">Fashion, swim and editorial model based in Miami. Available for travel worldwide.</p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="https://your-store.com/cart" target="_blank" rel="noopener">Shop my store</a>
+        <a class="btn" href="#requests">Send a request</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__bars" role="tablist" aria-label="Choose slide">
+    <button class="bar is-active" role="tab" aria-label="Slide 1 of 5" aria-selected="true"><i></i></button>
+    <button class="bar" role="tab" aria-label="Slide 2 of 5" aria-selected="false"><i></i></button>
+    <button class="bar" role="tab" aria-label="Slide 3 of 5" aria-selected="false"><i></i></button>
+    <button class="bar" role="tab" aria-label="Slide 4 of 5" aria-selected="false"><i></i></button>
+    <button class="bar" role="tab" aria-label="Slide 5 of 5" aria-selected="false"><i></i></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap about">
+    <div class="about__photo" role="img" aria-label="Portrait of Valentina Noir"></div>
+    <div class="about__text">
+      <h2 class="h2">About me</h2>
+      <p>I've been modeling for eight years, starting with runway in New York before moving into swimwear, lingerie and editorial work. You've seen me in campaigns for independent labels and on the pages of a few magazines I still can't believe I made.</p>
+      <p>Off set, I'm usually at the beach, in a dance class, or planning the next trip. I love collaborating with photographers and brands who have a clear vision and aren't afraid of a little drama.</p>
+      <dl class="stats">
+        <div><dt>Height</dt><dd>5′9″</dd></div>
+        <div><dt>Measurements</dt><dd>34–25–36</dd></div>
+        <div><dt>Dress</dt><dd>US 4</dd></div>
+        <div><dt>Hair</dt><dd>Dark brown</dd></div>
+        <div><dt>Eyes</dt><dd>Hazel</dd></div>
+        <div><dt>Shoe</dt><dd>US 8.5</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <div class="wrap">
+    <h2 class="h2">Gallery</h2>
+    <p class="lede">Recent editorial, swim and studio work. Tap any photo to see it full size.</p>
+    <div class="gallery" id="galleryGrid">
+      <button class="shot shot--tall" data-img="images/gallery-1.jpg" data-ph="--ph-1" aria-label="Open photo 1"></button>
+      <button class="shot shot--wide" data-img="images/gallery-2.jpg" data-ph="--ph-4" aria-label="Open photo 2"></button>
+      <button class="shot shot--mid"  data-img="images/gallery-3.jpg" data-ph="--ph-3" aria-label="Open photo 3"></button>
+      <button class="shot shot--mid"  data-img="images/gallery-4.jpg" data-ph="--ph-5" aria-label="Open photo 4"></button>
+      <button class="shot shot--tall" data-img="images/gallery-5.jpg" data-ph="--ph-2" aria-label="Open photo 5"></button>
+      <button class="shot shot--wide" data-img="images/gallery-6.jpg" data-ph="--ph-1" aria-label="Open photo 6"></button>
+      <button class="shot shot--wide" data-img="images/gallery-7.jpg" data-ph="--ph-3" aria-label="Open photo 7"></button>
+      <button class="shot shot--tall" data-img="images/gallery-8.jpg" data-ph="--ph-4" aria-label="Open photo 8"></button>
+      <button class="shot shot--mid"  data-img="images/gallery-9.jpg" data-ph="--ph-5" aria-label="Open photo 9"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="shop" id="shop">
+  <div class="wrap">
+    <h2 class="h2">The shop</h2>
+    <p>Signed prints, calendars, merch and exclusive photo sets, shipped straight to you.</p>
+    <!-- SHOP_URL -->
+    <a class="btn btn--solid" href="https://your-store.com/cart" target="_blank" rel="noopener">Go to my cart</a>
+  </div>
+</section>
+
+<!-- ============ LINKS ============ -->
+<section id="links">
+  <div class="wrap">
+    <h2 class="h2">My other links</h2>
+    <ul class="links">
+      <li><a href="https://instagram.com/" target="_blank" rel="noopener"><span class="links__name">Instagram</span><span class="links__handle">@valentinanoir</span></a></li>
+      <li><a href="https://tiktok.com/" target="_blank" rel="noopener"><span class="links__name">TikTok</span><span class="links__handle">@valentinanoir</span></a></li>
+      <li><a href="https://x.com/" target="_blank" rel="noopener"><span class="links__name">X</span><span class="links__handle">@valentinanoir</span></a></li>
+      <li><a href="https://youtube.com/" target="_blank" rel="noopener"><span class="links__name">YouTube</span><span class="links__handle">Behind the scenes</span></a></li>
+      <li><a href="https://amazon.com/" target="_blank" rel="noopener"><span class="links__name">Wishlist</span><span class="links__handle">Amazon</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ REQUESTS ============ -->
+<section class="requests" id="requests">
+  <div class="wrap split">
+    <div>
+      <h2 class="h2">Requests</h2>
+      <p class="lede">Bookings, brand collaborations, shoutouts or custom content. Tell me what you have in mind and I'll reply within 48 hours.</p>
+    </div>
+    <!-- Replace YOUR_REQUESTS_ID with a Formspree form ID -->
+    <form class="form js-form" action="https://formspree.io/f/YOUR_REQUESTS_ID" method="POST">
+      <div class="field">
+        <label for="r-name">Your name</label>
+        <input id="r-name" name="name" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="r-email">Email</label>
+        <input id="r-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="r-type">Type of request</label>
+        <select id="r-type" name="request_type" required>
+          <option value="">Choose one</option>
+          <option>Photo shoot booking</option>
+          <option>Brand collaboration</option>
+          <option>Custom content</option>
+          <option>Shoutout</option>
+          <option>Event appearance</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="r-date">Preferred date</label>
+        <input id="r-date" name="date" type="date">
+      </div>
+      <div class="field field--full">
+        <label for="r-budget">Budget</label>
+        <select id="r-budget" name="budget">
+          <option value="">Choose a range</option>
+          <option>Under $250</option>
+          <option>$250 – $500</option>
+          <option>$500 – $1,500</option>
+          <option>$1,500+</option>
+        </select>
+      </div>
+      <div class="field field--full">
+        <label for="r-details">Details</label>
+        <textarea id="r-details" name="details" required placeholder="Location, concept, usage, anything I should know"></textarea>
+      </div>
+      <button class="btn btn--solid" type="submit">Send request</button>
+      <p class="form__note" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap split">
+    <div>
+      <h2 class="h2">Contact me</h2>
+      <ul class="contact-list">
+        <li><span>Email</span><a href="mailto:hello@valentinanoir.com">hello@valentinanoir.com</a></li>
+        <li><span>Management</span><a href="mailto:bookings@agency.com">bookings@agency.com</a></li>
+        <li><span>Based in</span><a href="#contact">Miami, Florida</a></li>
+      </ul>
+    </div>
+    <!-- Replace YOUR_CONTACT_ID with a Formspree form ID -->
+    <form class="form js-form" action="https://formspree.io/f/YOUR_CONTACT_ID" method="POST">
+      <div class="field">
+        <label for="c-name">Your name</label>
+        <input id="c-name" name="name" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="c-email">Email</label>
+        <input id="c-email" name="email" type="email" required autocomplete="email">
+      </div>
+      <div class="field field--full">
+        <label for="c-msg">Message</label>
+        <textarea id="c-msg" name="message" required></textarea>
+      </div>
+      <button class="btn btn--solid" type="submit">Send message</button>
+      <p class="form__note" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Valentina Noir. All rights reserved.</span>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" aria-label="Close">×</button>
+  <button class="lb-btn lb-prev" aria-label="Previous photo">‹</button>
+  <div class="lightbox__img" id="lbImg"></div>
+  <button class="lb-btn lb-next" aria-label="Next photo">›</button>
+</div>
+
+<script>
+(() => {
+  /* ---------- nav ---------- */
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const onScroll = () => nav.classList.toggle('is-solid', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('.nav__links a').forEach(a =>
+    a.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    })
+  );
+
+  /* ---------- hero slideshow ---------- */
+  const DURATION = 6000; // ms per slide
+  const hero = document.querySelector('.hero');
+  const slides = [...document.querySelectorAll('.slide')];
+  const bars = [...document.querySelectorAll('.bar')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  hero.style.setProperty('--dur', DURATION + 'ms');
+  let current = 0, timer;
+
+  function go(i) {
+    current = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => s.classList.toggle('is-active', n === current));
+    bars.forEach((b, n) => {
+      b.classList.remove('is-active', 'is-done');
+      const i = b.querySelector('i');
+      i.style.animation = 'none'; void i.offsetWidth; i.style.animation = '';
+      if (n < current) b.classList.add('is-done');
+      if (n === current) b.classList.add('is-active');
+      b.setAttribute('aria-selected', n === current);
+    });
+    schedule();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (!reduced) timer = setTimeout(() => go(current + 1), DURATION);
+  }
+  bars.forEach((b, n) => b.addEventListener('click', () => go(n)));
+
+  // pause while hovering or when the tab is hidden
+  let remaining = DURATION, started = Date.now();
+  const pause = () => { hero.classList.add('is-paused'); clearTimeout(timer); };
+  const resume = () => { hero.classList.remove('is-paused'); schedule(); };
+  hero.addEventListener('mouseenter', pause);
+  hero.addEventListener('mouseleave', resume);
+  document.addEventListener('visibilitychange', () => document.hidden ? pause() : go(current));
+
+  // swipe on phones
+  let x0 = null;
+  hero.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) go(current + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  schedule();
+
+  /* ---------- gallery + lightbox ---------- */
+  const shots = [...document.querySelectorAll('.shot')];
+  const bg = el => `url("${el.dataset.img}"), var(${el.dataset.ph})`;
+  shots.forEach(s => s.style.backgroundImage = bg(s));
+
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  let idx = 0, lastFocus;
+  const show = i => { idx = (i + shots.length) % shots.length; lbImg.style.backgroundImage = bg(shots[idx]); };
+  const open = i => { lastFocus = document.activeElement; show(i); lb.classList.add('is-open'); lb.querySelector('.lb-close').focus(); document.body.style.overflow = 'hidden'; };
+  const close = () => { lb.classList.remove('is-open'); document.body.style.overflow = ''; lastFocus && lastFocus.focus(); };
+
+  shots.forEach((s, i) => s.addEventListener('click', () => open(i)));
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', () => show(idx - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => show(idx + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+
+  /* ---------- forms (AJAX submit to Formspree) ---------- */
+  document.querySelectorAll('.js-form').forEach(form => {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const note = form.querySelector('.form__note');
+      const btn = form.querySelector('button[type=submit]');
+      const label = btn.textContent;
+      if (form.action.includes('YOUR_')) {
+        note.textContent = 'This form isn’t connected yet. Add a Formspree ID in the page code.';
+        return;
+      }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error();
+        form.reset();
+        note.textContent = label === 'Send request' ? 'Request sent. I’ll reply within 48 hours.' : 'Message sent. Talk soon.';
+      } catch {
+        note.textContent = 'That didn’t go through. Check your connection and try again, or email me directly.';
+      } finally {
+        btn.disabled = false; btn.textContent = label;
+      }
+    });
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
